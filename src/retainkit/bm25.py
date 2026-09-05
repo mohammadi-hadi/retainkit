@@ -56,7 +56,9 @@ class BM25:
                 frequency = counts.get(term, 0)
                 if not frequency:
                     continue
-                denominator = frequency + self.k1 * (1 - self.b + self.b * length / self._avg_length)
+                denominator = frequency + self.k1 * (
+                    1 - self.b + self.b * length / self._avg_length
+                )
                 total += self._idf[term] * frequency * (self.k1 + 1) / denominator
             results[index] = total
         return results

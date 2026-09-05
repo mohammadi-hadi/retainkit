@@ -64,7 +64,9 @@ class SessionSummary:
         carried = remaining - share * len(closed)
         for session in closed:
             in_session = [f for f in sentences if f.session == session]
-            picked, spent = fill(self.selector(in_session, self.per_session), share + carried, tokenizer)
+            picked, spent = fill(
+                self.selector(in_session, self.per_session), share + carried, tokenizer
+            )
             kept.extend(picked)
             carried = share + carried - spent
         return package(self.name, budget, recent + kept, tokenizer)
