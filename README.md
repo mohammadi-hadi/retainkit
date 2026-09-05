@@ -4,6 +4,7 @@
 
 [![CI](https://github.com/mohammadi-hadi/retainkit/actions/workflows/ci.yml/badge.svg)](https://github.com/mohammadi-hadi/retainkit/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/retainkit)](https://pypi.org/project/retainkit/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22352964.svg)](https://doi.org/10.5281/zenodo.22352964)
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -173,10 +174,14 @@ nothing quoted above can drift away from what the package produces.
   title   = {retainkit: context and memory policies for LLM agents,
              scored by the evidence that survives the token budget},
   year    = {2026},
+  doi     = {10.5281/zenodo.22352964},
   url     = {https://github.com/mohammadi-hadi/retainkit},
   license = {MIT}
 }
 ```
+
+Every release is archived at [doi.org/10.5281/zenodo.22352964](https://doi.org/10.5281/zenodo.22352964),
+which is the concept DOI and always resolves to the newest version.
 
 LoCoMo is by Maharana et al., *Evaluating Very Long-Term Conversational Memory
 of LLM Agents*, ACL 2024. Cite it if you use these results.
