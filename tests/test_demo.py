@@ -31,7 +31,7 @@ def test_the_last_session_carries_no_planted_fact():
 def test_demo_command_writes_the_three_result_files(tmp_path, capsys):
     assert main(["demo", "--out", str(tmp_path), "--seed", "3"]) == 0
     assert {p.name for p in tmp_path.iterdir()} == {"table.md", "report.md", "demo.json"}
-    assert "Evidence recall" in capsys.readouterr().out
+    assert "Whole turns" in capsys.readouterr().out
 
 
 def test_eval_command_reads_a_case_file(tmp_path, capsys):

@@ -17,15 +17,15 @@ def _pct(value: float) -> str:
 def sweep_table(report: Report) -> str:
     """Recall and cost for every policy at every budget."""
     lines = [
-        "| Budget | Policy | Sees question | Evidence recall | 95% CI | Partial | Tokens |",
-        "| ---: | --- | :---: | ---: | --- | ---: | ---: |",
+        "| Budget | Policy | Sees question | Recall | 95% CI | Whole turns | Partial | Tokens |",
+        "| ---: | --- | :---: | ---: | --- | ---: | ---: | ---: |",
     ]
     for budget in report.budgets:
         for row in sorted(report.by_budget(budget), key=lambda r: (-r.recall, r.policy)):
             lines.append(
                 f"| {row.budget} | `{row.policy}` | {'yes' if row.query_aware else 'no'} "
                 f"| {_pct(row.recall)} | {_pct(row.recall_low)}–{_pct(row.recall_high)} "
-                f"| {_pct(row.partial)} | {row.tokens:.0f} |"
+                f"| {_pct(row.whole_recall)} | {_pct(row.partial)} | {row.tokens:.0f} |"
             )
     return "\n".join(lines)
 
