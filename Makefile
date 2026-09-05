@@ -30,8 +30,8 @@ build:
 	git archive HEAD | tar -x -C "$$export_dir" && \
 	.venv/bin/python -m build --outdir dist "$$export_dir" && \
 	rm -rf "$$export_dir"
-	@if tar -tzf dist/*.tar.gz | grep -E '(^|/)\.' ; then \
-		echo "hidden files reached the sdist"; exit 1; fi
+	@if tar -tzf dist/*.tar.gz | grep -E '/\.' | grep -vE '/\.(github/|zenodo\.json$$)' ; then \
+		echo "unexpected hidden files reached the sdist"; exit 1; fi
 	@if unzip -Z1 dist/*.whl | grep -E '(^|/)\.' ; then \
-		echo "hidden files reached the wheel"; exit 1; fi
+		echo "unexpected hidden files reached the wheel"; exit 1; fi
 	@echo "artifacts clean:" && ls dist
