@@ -21,15 +21,17 @@ locomo:
 	.venv/bin/python examples/locomo/run_locomo.py
 
 # Build sdist + wheel from a clean `git archive` export in a temp directory
-# OUTSIDE the working tree, so only committed files can reach a distribution.
+# OUTSIDE the working tree: hatchling walks upward looking for ignore files and
+# would otherwise pick up local ones. Only committed files can reach a
+# distribution, and the artifacts are then checked for stray hidden files.
 build:
 	rm -rf dist
 	@export_dir=$$(mktemp -d) && \
 	git archive HEAD | tar -x -C "$$export_dir" && \
 	.venv/bin/python -m build --outdir dist "$$export_dir" && \
 	rm -rf "$$export_dir"
-	@if tar -tzf dist/*.tar.gz | grep -qiE 'claude|gitignore'; then \
-		echo "TAINTED SDIST"; exit 1; fi
-	@if unzip -l dist/*.whl | grep -qiE 'claude|gitignore'; then \
-		echo "TAINTED WHEEL"; exit 1; fi
+	@if tar -tzf dist/*.tar.gz | grep -E '(^|/)\.' ; then \
+		echo "hidden files reached the sdist"; exit 1; fi
+	@if unzip -Z1 dist/*.whl | grep -E '(^|/)\.' ; then \
+		echo "hidden files reached the wheel"; exit 1; fi
 	@echo "artifacts clean:" && ls dist
