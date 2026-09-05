@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use retainkit, please cite it as below."
+title: "retainkit: context and memory policies for LLM agents, scored by the evidence that survives the token budget"
+type: software
+authors:
+  - family-names: Mohammadi
+    given-names: Hadi
+    orcid: "https://orcid.org/0000-0003-0860-9200"
+    affiliation: "Utrecht University"
+repository-code: "https://github.com/mohammadi-hadi/retainkit"
+license: MIT
+version: 0.1.0
+date-released: 2026-09-05

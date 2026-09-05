@@ -1,0 +1,23 @@
+{
+  "title": "retainkit: context and memory policies for LLM agents, scored by the evidence that survives the token budget",
+  "description": "Context and memory policies for LLM agents, scored by the evidence that survives the token budget — across 1,527 LoCoMo questions a sliding window holds 7.7% of the supporting turns at 2,048 tokens, where retrieval holds 59.5% and a window needs 16 times the budget to match it.",
+  "creators": [
+    {
+      "name": "Mohammadi, Hadi",
+      "orcid": "0000-0003-0860-9200",
+      "affiliation": "Utrecht University"
+    }
+  ],
+  "license": "mit",
+  "upload_type": "software",
+  "keywords": [
+    "agents",
+    "context management",
+    "conversational memory",
+    "llm evaluation",
+    "locomo",
+    "long-term memory",
+    "python",
+    "retrieval"
+  ]
+}
