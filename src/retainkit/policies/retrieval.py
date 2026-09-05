@@ -2,12 +2,19 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from ..bm25 import BM25
 from ..tokens import Tokenizer, char4
 from ..types import Fragment, Probe, Retained, Transcript
 from .base import fill, package, sentence_fragments, turn_fragments
+
+Index = tuple[list[Fragment], BM25]
+
+
+def _key(transcript: Transcript) -> tuple[str, int]:
+    """Cache key. Transcripts are immutable, and an id names one conversation."""
+    return (transcript.id, len(transcript.turns))
 
 
 @dataclass
@@ -20,6 +27,16 @@ class Retrieval:
 
     name: str = "retrieval"
     query_aware: bool = True
+    cache: dict[tuple[str, int], Index] = field(default_factory=dict, repr=False, compare=False)
+
+    def _index(self, transcript: Transcript) -> Index:
+        """Build the index once per conversation, as a served system would."""
+        hit = self.cache.get(_key(transcript))
+        if hit is None:
+            fragments = turn_fragments(transcript)
+            hit = (fragments, BM25([f.text for f in fragments]))
+            self.cache[_key(transcript)] = hit
+        return hit
 
     def select(
         self,
@@ -28,8 +45,7 @@ class Retrieval:
         budget: int,
         tokenizer: Tokenizer = char4,
     ) -> Retained:
-        fragments = turn_fragments(transcript)
-        index = BM25([f.text for f in fragments])
+        fragments, index = self._index(transcript)
         ranked = [fragments[i] for i in index.ranked(probe.question)]
         kept, _ = fill(ranked, budget, tokenizer)
         return package(self.name, budget, kept, tokenizer)
@@ -48,6 +64,17 @@ class FactMemory:
     recent_share: float = 0.4
     name: str = "fact_memory"
     query_aware: bool = True
+    cache: dict[tuple[str, int], Index] = field(default_factory=dict, repr=False, compare=False)
+
+    def _index(self, transcript: Transcript) -> Index:
+        """The store is built once per conversation and searched per question."""
+        hit = self.cache.get(_key(transcript))
+        if hit is None:
+            current = transcript.last_session
+            stored = [f for f in sentence_fragments(transcript) if f.session != current]
+            hit = (stored, BM25([f.text for f in stored]))
+            self.cache[_key(transcript)] = hit
+        return hit
 
     def __post_init__(self) -> None:
         if not 0.0 <= self.recent_share <= 1.0:
@@ -66,10 +93,9 @@ class FactMemory:
         live = [f for f in turn_fragments(transcript) if f.session == current]
         recent, recent_spend = fill(reversed(live), int(budget * self.recent_share), tokenizer)
 
-        stored: list[Fragment] = [f for f in sentence_fragments(transcript) if f.session != current]
+        stored, index = self._index(transcript)
         if not stored:
             return package(self.name, budget, recent, tokenizer)
-        index = BM25([f.text for f in stored])
         ranked = [stored[i] for i in index.ranked(probe.question)]
         recalled, _ = fill(ranked, budget - recent_spend, tokenizer)
         return package(self.name, budget, recent + recalled, tokenizer)
