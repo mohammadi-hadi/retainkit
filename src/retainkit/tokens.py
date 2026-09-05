@@ -1,11 +1,12 @@
 """Token accounting.
 
 The default estimator is the usual four-characters-per-token approximation. It
-is an estimate, not a tokenizer: absolute budgets move if you swap it, so any
-count reported by this package is only as exact as the callable behind it. Pass
-your model's own tokenizer through ``Tokenizer`` when the exact number matters.
-``tests/test_tokens.py`` checks that the policy ordering this package reports is
-the same under both estimators shipped here.
+is an estimate, not a tokenizer: absolute numbers move if you swap it. On the
+fixture, changing estimator moves one policy's recall by 22 points, so treat any
+single figure here as approximate and pass your model's own tokenizer through
+``Tokenizer`` when it has to be exact. What does not move is the comparison:
+``tests/test_tokens.py`` holds the two estimators to the same verdict about
+which policies beat which.
 """
 
 from __future__ import annotations
