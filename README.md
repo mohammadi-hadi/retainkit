@@ -186,9 +186,8 @@ which is the concept DOI and always resolves to the newest version.
 LoCoMo is by Maharana et al., *Evaluating Very Long-Term Conversational Memory
 of LLM Agents*, ACL 2024. Cite it if you use these results.
 
-## Related
+## Part of evalstack
 
-[judgekit](https://github.com/mohammadi-hadi/judgekit) audits an LLM judge,
-[arenakit](https://github.com/mohammadi-hadi/arenakit) audits a pairwise
-leaderboard, [trajectory-judge](https://github.com/mohammadi-hadi/trajectory-judge)
-scores agent trajectories. More at [mohammadi.cv](https://mohammadi.cv).
+[evalstack](https://github.com/mohammadi-hadi/evalstack) is the map of these
+eleven evaluation tools: what each one measures, what it found on real data,
+and the two chains that run end to end.
