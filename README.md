@@ -6,7 +6,7 @@
 [![PyPI](https://img.shields.io/pypi/v/retainkit)](https://pypi.org/project/retainkit/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22352964.svg)](https://doi.org/10.5281/zenodo.22352964)
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/mohammadi-hadi/retainkit/blob/main/LICENSE)
 
 *Context and memory policies for LLM agents, scored by the evidence that survives the token budget.*
 
@@ -45,7 +45,7 @@ A sliding window at this budget answers 7.7% of what it could. Reading the
 question first takes that to 59.5% for the same money. Put the other way: a
 window needs 16,384 tokens to reach the 50% that retrieval reaches at 1,024.
 
-![LoCoMo results](examples/locomo/results/figures/locomo.png)
+![LoCoMo results](https://raw.githubusercontent.com/mohammadi-hadi/retainkit/main/examples/locomo/results/figures/locomo.png)
 
 The right panel is where the money is. Recency holds every question whose
 evidence is in the session in progress and 62.3% of the ones a session or two
@@ -54,7 +54,7 @@ back. Three sessions back it holds **none of them**, while retrieval is still at
 window scores zero on it.
 
 Full numbers, including every budget from 512 to 32,768 and a split by question
-type: [`examples/locomo/results/locomo.md`](examples/locomo/results/locomo.md).
+type: [`examples/locomo/results/locomo.md`](https://github.com/mohammadi-hadi/retainkit/blob/main/examples/locomo/results/locomo.md).
 
 ## Two results that do not flatter the tooling
 
@@ -121,7 +121,7 @@ Your own conversations go in as JSON and out as a report:
 retainkit eval conversations.json --budget 2048 --budget 8192 --out results/
 ```
 
-The file format is in [`src/retainkit/io.py`](src/retainkit/io.py). `retainkit
+The file format is in [`src/retainkit/io.py`](https://github.com/mohammadi-hadi/retainkit/blob/main/src/retainkit/io.py). `retainkit
 demo` runs a seeded fixture and needs no data at all.
 
 ## The policies
