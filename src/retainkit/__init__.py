@@ -18,7 +18,7 @@ from .report import age_table, frontier_table, markdown, sweep_table, to_json
 from .tokens import char4, wordish
 from .types import Fragment, Probe, Retained, Transcript, Turn
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = [
     "DEFAULT_BUDGETS",

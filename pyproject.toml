@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "retainkit"
-version = "0.1.0"
+version = "0.1.1"
 description = "Context and memory policies for LLM agents, scored by the evidence that survives the token budget"
 readme = "README.md"
 license = "MIT"
